@@ -1,3 +1,11 @@
+<h2>{{file}}</h2>
 <p>
-  chocolate-printing works!
+  Your chocolate is printing...
 </p>
+<p *ngIf="isHoming">
+  Homing...
+</p>
+<p *ngIf="isSendingFile">
+  {{progress}}%
+</p>
+

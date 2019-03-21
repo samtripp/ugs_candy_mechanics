@@ -29,4 +29,15 @@ export class FilesService {
           return response;
       });
   }
+
+  getWorkspaceFiles(): Observable<string[]> {
+    return this.http.get<any>("/api/v1/files/getWorkspaceFileList")
+      .map((response: any) => {
+          return response.fileList;
+      });
+  }
+
+  openWorkspaceFile(file:string): Observable<any> {
+    return this.http.post<any>("/api/v1/files/openWorkspaceFile?file=" + file, null);
+  }
 }

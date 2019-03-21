@@ -1,3 +1,7 @@
-<p>
-  select-file works!
-</p>
+<ul class="fileSelect">
+  <li *ngFor="let file of fileList">
+    <a [routerLink]="['/load-chocolate', file]">
+      {{file}}
+    </a>
+  </li>
+</ul>

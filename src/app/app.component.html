@@ -1,4 +1,39 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<h1>{{title}}</h1>
+<div class="container">
+  <div *ngIf="isConnectedToController() && isConnectedToPendantAPI">
+    <ul class="nav nav-pills justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/'">Start over</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="'/staff'">Staff</a>
+      </li>
+    </ul>
 
-<router-outlet ng-if="status.state != StateEnum.DISCONNECTED"></router-outlet>
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center"
+       *ngIf="isConnectedToPendantAPI() && !isConnectedToController()">
+    <div class="card col-sm-10 col-md-6">
+      <div class="card-body">
+        <h5 class="card-title">Connect to controller</h5>
+        <app-connect></app-connect>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center" *ngIf="!isConnectedToPendantAPI()">
+    <div class="card col-sm-10 col-md-6">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            Waiting for the machine to become available...
+          </div>
+          <div class="col-2">
+            <div class="spinner-border text-info" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
