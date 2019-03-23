@@ -1,6 +1,6 @@
 <h2>{{name}}</h2>
 <p>
-  Your chocolate is printing... ({{status.state}})
+  Your chocolate is printing...
 </p>
 
 <div *ngIf="isHoming()">
@@ -37,9 +37,13 @@
   </div>
 </div>
 
-<p *ngIf="isSending()">
-  {{progress}}%
-</p>
+<div *ngIf="isSending()">
+  <div class="progress">
+    <div class="progress-bar progress-bar bg-info" [attr.aria-valuenow]="progress" aria-valuemin="0"
+         aria-valuemax="100" [style.width]="(progress/100)*100 + '%'">{{progress}}%
+    </div>
+  </div>
+</div>
 
 <div *ngIf="isEjecting()">
   <div class="d-flex justify-content-center align-items-center">

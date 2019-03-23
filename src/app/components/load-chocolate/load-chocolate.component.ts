@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ISubscription } from "rxjs/Subscription";
+
 import { FileUtils } from '../../file-utils';
 
 @Component({
@@ -7,7 +9,8 @@ import { FileUtils } from '../../file-utils';
   templateUrl: './load-chocolate.component.html',
   styleUrls: ['./load-chocolate.component.scss']
 })
-export class LoadChocolateComponent implements OnInit {
+export class LoadChocolateComponent implements OnInit, OnDestroy {
+  private routeSubscription:ISubscription;
 
   private file:string;
   private name:string;
@@ -16,9 +19,13 @@ export class LoadChocolateComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
+    this.routeSubscription = this.sub = this.route.params.subscribe(params => {
       this.file = params['file'];
       this.name = FileUtils.convertFilename(this.file);
     });
+  }
+
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
   }
 }

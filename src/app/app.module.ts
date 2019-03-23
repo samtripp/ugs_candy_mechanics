@@ -13,6 +13,8 @@ import { ChocolatePrintingComponent } from './components/chocolate-printing/choc
 import { ChocolateFinishedComponent } from './components/chocolate-finished/chocolate-finished.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { StartPrintingComponent } from './components/start-printing/start-printing.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { StartPrintingComponent } from './components/start-printing/start-printi
     ChocolateFinishedComponent,
     StaffComponent,
     ConnectComponent,
-    StartPrintingComponent
+    StartPrintingComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

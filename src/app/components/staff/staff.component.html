@@ -1,3 +1,9 @@
-<p>
-  staff works!
-</p>
+<div>
+  <div class="controlButtons">
+    <button class="btn btn-primary" [disabled]="!isIdle()" (click)="disconnect()">Disconnect from machine</button>
+    <button class="btn btn-primary" [disabled]="!isIdle()" (click)="resetMachine()">Reset machine</button>
+    <button class="btn btn-primary" [disabled]="!isIdle()" (click)="returnToStart()">Return to start</button>
+    <button class="btn btn-primary" [disabled]="isIdle()" (click)="stopSending()">Stop sending</button>
+  </div>
+  <button class="btn btn-primary" [routerLink]="['/select-file']">Exit staff</button>
+</div>

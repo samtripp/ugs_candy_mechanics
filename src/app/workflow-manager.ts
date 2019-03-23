@@ -15,6 +15,7 @@ enum WorkflowStateEnum {
   MOVE_TO_ORIGIN = "MOVE_TO_ORIGIN",
   SENDING = "SENDING",
   FINISHED = "FINISHED",
+  EJECTING = "EJECTING"
 }
 
 @Injectable({

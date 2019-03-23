@@ -1,14 +1,6 @@
+<app-header></app-header>
 <div class="container">
   <div *ngIf="isConnectedToController() && isConnectedToPendantAPI">
-    <ul class="nav nav-pills justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/'">Start over</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="'/staff'">Staff</a>
-      </li>
-    </ul>
-
     <router-outlet></router-outlet>
   </div>
 
@@ -37,3 +29,5 @@
     </div>
   </div>
 </div>
+
+<app-footer></app-footer>
