@@ -1,11 +1,59 @@
-<h2>{{file}}</h2>
+<h2>{{name}}</h2>
 <p>
-  Your chocolate is printing...
+  Your chocolate is printing... ({{status.state}})
 </p>
-<p *ngIf="isHoming">
-  Homing...
-</p>
-<p *ngIf="isSendingFile">
+
+<div *ngIf="isHoming()">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card col-sm-10 col-md-6">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            Homing machine...
+          </div>
+          <div class="col-2">
+            <div class="spinner-border text-info" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isMovingToOrigin()">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card col-sm-10 col-md-6">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            Moving to origin...
+          </div>
+          <div class="col-2">
+            <div class="spinner-border text-info" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p *ngIf="isSending()">
   {{progress}}%
 </p>
 
+<div *ngIf="isEjecting()">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card col-sm-10 col-md-6">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            Ejecting...
+          </div>
+          <div class="col-2">
+            <div class="spinner-border text-info" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

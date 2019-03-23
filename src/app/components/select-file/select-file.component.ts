@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FilesService } from '../../services/files.service'
+import { FilesService } from '../../services/files.service';
+import { FileUtils } from '../../file-utils';
 
 @Component({
   selector: 'app-select-file',
@@ -21,5 +22,9 @@ export class SelectFileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscribtion.unsubscribe()
+  }
+
+  formatFilename(file:file) : string {
+     return FileUtils.convertFilename(file);
   }
 }
