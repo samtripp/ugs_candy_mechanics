@@ -1,7 +1,10 @@
-<ul class="fileSelect">
-  <li *ngFor="let file of fileList">
-    <a [routerLink]="['/load-chocolate', file]">
-      {{formatFilename(file)}}
-    </a>
-  </li>
-</ul>
+<h2>Choose your name from the list</h2>
+<div class="fileSelect">
+  <ul>
+    <li *ngFor="let file of fileList">
+      <button type="button" class="btn btn-link" (click)="selectFile(file)">
+        {{formatFilename(file)}}
+      </button>
+    </li>
+  </ul>
+</div>

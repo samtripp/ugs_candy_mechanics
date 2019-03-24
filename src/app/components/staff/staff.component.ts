@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
+import { Router } from '@angular/router';
 
 import { StatusService } from '../../services/status.service';
 import { MachineService } from '../../services/machine.service';
 import { FilesService  } from '../../services/files.service';
+import { WorkflowManager } from '../../workflow-manager';
 import { Status } from '../../model/status';
 import { StateEnum } from '../../model/state-enum';
 
@@ -16,7 +18,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   private status:Status;
   private statusSubscription:ISubscription;
 
-  constructor(private statusService:StatusService, private machineService:MachineService, private filesService:FilesService) { }
+  constructor(private router: Router, private statusService:StatusService, private machineService:MachineService, private filesService:FilesService, private workflowManager:WorkflowManager) { }
 
   ngOnInit() {
      this.status = new Status();
@@ -35,18 +37,23 @@ export class StaffComponent implements OnInit, OnDestroy {
   }
 
   disconnect() {
+    this.workflowManager.stop();
     this.machineService.disconnect().subscribe();
   }
 
   resetMachine() {
+      this.workflowManager.stop();
       this.machineService.softReset().subscribe();
   }
 
   stopSending() {
-    this.filesService.cancel().subscribe();
+    this.workflowManager.stop();
   }
 
   returnToStart() {
+    this.workflowManager.stop();
+    this.workflowManager.setFile('');
     this.machineService.sendCommands("G21 X100 Y100 Z100").subscribe();
+    this.router.navigate(['/select-file']);
   }
 }

@@ -14,7 +14,7 @@ import { ChocolateFinishedComponent } from './components/chocolate-finished/choc
 import { StaffComponent } from './components/staff/staff.component';
 import { StartPrintingComponent } from './components/start-printing/start-printing.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HasSelectedFileGuard } from './has-selected-file.guard';
 
 @NgModule({
   declarations: [
@@ -26,8 +26,7 @@ import { HeaderComponent } from './components/header/header.component';
     StaffComponent,
     ConnectComponent,
     StartPrintingComponent,
-    FooterComponent,
-    HeaderComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +35,7 @@ import { HeaderComponent } from './components/header/header.component';
     FormsModule,
     NgbModule
   ],
-  providers: [],
+  providers: [HasSelectedFileGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

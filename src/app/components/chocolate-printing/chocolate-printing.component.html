@@ -1,11 +1,11 @@
-<h2>{{name}}</h2>
+<h2>{{getName()}}</h2>
 <p>
   Your chocolate is printing...
 </p>
 
 <div *ngIf="isHoming()">
   <div class="d-flex justify-content-center align-items-center">
-    <div class="card col-sm-10 col-md-6">
+    <div class="card bg-light col-sm-10 col-md-6">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col">
@@ -22,7 +22,7 @@
 
 <div *ngIf="isMovingToOrigin()">
   <div class="d-flex justify-content-center align-items-center">
-    <div class="card col-sm-10 col-md-6">
+    <div class="card bg-light col-sm-10 col-md-6">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col">
@@ -47,7 +47,7 @@
 
 <div *ngIf="isEjecting()">
   <div class="d-flex justify-content-center align-items-center">
-    <div class="card col-sm-10 col-md-6">
+    <div class="card bg-light col-sm-10 col-md-6">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col">

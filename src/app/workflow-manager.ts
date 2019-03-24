@@ -7,6 +7,7 @@ import { FilesService } from './services/files.service';
 import { Status } from './model/status';
 import { StateEnum } from './model/state-enum';
 import { FileUtils } from './file-utils';
+import { environment } from '../environments/environment';
 
 enum WorkflowStateEnum {
   WORKING = "WORKING",
@@ -15,7 +16,8 @@ enum WorkflowStateEnum {
   MOVE_TO_ORIGIN = "MOVE_TO_ORIGIN",
   SENDING = "SENDING",
   FINISHED = "FINISHED",
-  EJECTING = "EJECTING"
+  EJECTING = "EJECTING",
+  ABORTED = "ABORTED"
 }
 
 @Injectable({
@@ -25,31 +27,52 @@ export class WorkflowManager {
   private file:string;
   private status:Status;
   private previousState: StateEnum;
-  private workflowState: WorkflowStateEnum;
+  private workflowState: WorkflowStateEnum = WorkflowStateEnum.FINISHED;
 
-  constructor(private router: Router, private statusService:StatusService, private machineService:MachineService, private filesService:FilesService) { }
+  constructor(private router: Router, private statusService:StatusService, private machineService:MachineService, private filesService:FilesService) {
+  }
 
-  public start(file:string) : void {
+  public setFile(file:string) {
     this.file = file;
-    this.status = new Status();
-    this.workflowState = WorkflowStateEnum.STARTING;
-    this.previousState = StateEnum.UNKNOWN;
+  }
 
-    this.statusService.getStatus()
-      .subscribe(data => {
-        this.status = data;
+  public getFile() : string {
+    return this.file;
+  }
 
-        // Check if the state has changed
-        if(this.previousState != this.status.state) {
-          this.previousState = this.status.state;
+  public getName() : string {
+    return FileUtils.convertFilename(this.file);
+  }
 
-          // If we changed the state to IDLE
-          if(this.status.state == StateEnum.IDLE) {
-            this.previousState = StateEnum.IDLE;
-            this.onReadyForNextStep();
+  public start() : void {
+    if(!this.isRunning()) {
+      this.status = new Status();
+      this.workflowState = WorkflowStateEnum.STARTING;
+      this.previousState = StateEnum.UNKNOWN;
+
+      this.statusService.getStatus()
+        .subscribe(data => {
+          this.status = data;
+
+          // Check if the state has changed
+          if(this.previousState != this.status.state) {
+            this.previousState = this.status.state;
+
+            // If we changed the state to IDLE
+            if(this.status.state == StateEnum.IDLE) {
+              this.previousState = StateEnum.IDLE;
+              this.onReadyForNextStep();
+            }
           }
-        }
-      });
+        });
+    }
+  }
+
+  public stop() : void {
+    this.filesService.cancel().subscribe(() => {
+      this.workflowState = WorkflowStateEnum.ABORTED;
+      this.previousState = StateEnum.UNKNOWN;
+    });
   }
 
   public onReadyForNextStep() {
@@ -93,7 +116,7 @@ export class WorkflowManager {
     console.log(" - Moving to origin");
     this.workflowState = WorkflowStateEnum.WORKING;
 
-    this.machineService.sendCommands("G21\nG0 X100 Y100 Z10 F1000").subscribe(() => {
+    this.machineService.sendCommands(environment.moveToOriginCommand).subscribe(() => {
       this.workflowState = WorkflowStateEnum.MOVE_TO_ORIGIN;
       this.previousState = StateEnum.UNKNOWN;
     },
@@ -125,7 +148,7 @@ export class WorkflowManager {
     console.log(" - Ejecting");
     this.workflowState = WorkflowStateEnum.WORKING;
 
-    this.machineService.sendCommands("G21\nG0 X100 Y100 Z10 F1000").subscribe(() => {
+    this.machineService.sendCommands(environment.ejectCommand).subscribe(() => {
       this.workflowState = WorkflowStateEnum.EJECTING;
       this.previousState = StateEnum.UNKNOWN;
     },
@@ -137,7 +160,11 @@ export class WorkflowManager {
   finishedSending() {
     console.log(" - Finished sending");
     this.workflowState = WorkflowStateEnum.FINISHED;
-    this.router.navigate(['/chocolate-finished', this.file]);
+    this.router.navigate(['/chocolate-finished']);
+  }
+
+  isRunning() : boolean {
+    return this.workflowState != WorkflowStateEnum.ABORTED && this.workflowState != WorkflowStateEnum.FINISHED;
   }
 
   isSending() : boolean {

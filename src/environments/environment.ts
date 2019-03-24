@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  debug: true,
+  moveToOriginCommand: "G21\nG0 X100 Y100 Z10 F1000",
+  ejectCommand: "G21\nG0 X100 Y100 Z10 F1000"
 };
 
 /*

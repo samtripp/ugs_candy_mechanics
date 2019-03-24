@@ -14,22 +14,13 @@ import { FileUtils } from '../../file-utils';
   styleUrls: ['./chocolate-printing.component.scss']
 })
 export class ChocolatePrintingComponent implements OnInit, OnDestroy {
-  private routeSubscription:ISubscription;
   private statusSubscription:ISubscription;
-
-  private file:string;
-  private name:string;
   private status:Status;
   private progress:number;
 
-  constructor(private route: ActivatedRoute, private router: Router, private workflowManager:WorkflowManager, private statusService:StatusService) { }
+  constructor( private router: Router, private workflowManager:WorkflowManager, private statusService:StatusService) { }
 
   ngOnInit() {
-    this.routeSubscription = this.route.params.subscribe(params => {
-      this.file = params['file'];
-      this.name = FileUtils.convertFilename(this.file);
-    });
-
     this.status = new Status();
     this.statusSubscription = this.statusService.getStatus()
       .subscribe(data => {
@@ -39,11 +30,10 @@ export class ChocolatePrintingComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.workflowManager.start(this.file);
+    this.workflowManager.start();
   }
 
   ngOnDestroy() {
-    this.routeSubscription.unsubscribe()
     this.statusSubscription.unsubscribe()
   }
 
@@ -61,5 +51,9 @@ export class ChocolatePrintingComponent implements OnInit, OnDestroy {
 
   isEjecting() : boolean {
     return this.workflowManager.isEjecting();
+  }
+
+  getName() : string {
+    return this.workflowManager.getName();
   }
 }
