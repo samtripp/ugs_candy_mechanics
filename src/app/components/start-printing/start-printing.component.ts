@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 import { Router } from '@angular/router';
 
-import { FilesService } from '../../services/files.service';
 import { WorkflowManager } from '../../workflow-manager';
 import { FileUtils } from '../../file-utils';
 
@@ -28,6 +27,5 @@ export class StartPrintingComponent implements OnInit, OnDestroy {
 
   startPrinting() {
     this.router.navigate(['/chocolate-printing']);
-
   }
 }

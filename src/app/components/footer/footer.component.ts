@@ -18,18 +18,18 @@ export class FooterComponent implements OnInit, OnDestroy {
   constructor(private statusService:StatusService) { }
 
   ngOnInit() {
-     this.status = new Status();
-      this.statusSubscription = this.statusService.getStatus()
-        .subscribe(data => {
-          this.status = data;
-        });
+    this.status = new Status();
+    this.statusSubscription = this.statusService.getStatus()
+      .subscribe(data => {
+        this.status = data;
+      });
   }
 
   ngOnDestroy() {
-    this.statusSubscription.unsubscribe()
+    this.statusSubscription.unsubscribe();
   }
 
   isDebugEnabled() {
-    return environment.debug
+    return environment.debug;
   }
 }

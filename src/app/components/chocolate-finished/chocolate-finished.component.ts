@@ -14,7 +14,6 @@ export class ChocolateFinishedComponent implements OnInit, OnDestroy {
   constructor(private workflowManager:WorkflowManager) { }
 
   ngOnInit() {
-
   }
 
   ngOnDestroy() {

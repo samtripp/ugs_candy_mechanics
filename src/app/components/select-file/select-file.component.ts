@@ -31,6 +31,6 @@ export class SelectFileComponent implements OnInit, OnDestroy {
   }
 
   formatFilename(file:string) : string {
-     return FileUtils.convertFilename(file);
+    return FileUtils.convertFilename(file);
   }
 }

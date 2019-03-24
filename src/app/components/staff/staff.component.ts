@@ -21,11 +21,11 @@ export class StaffComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private statusService:StatusService, private machineService:MachineService, private filesService:FilesService, private workflowManager:WorkflowManager) { }
 
   ngOnInit() {
-     this.status = new Status();
-      this.statusSubscription = this.statusService.getStatus()
-        .subscribe(data => {
-          this.status = data;
-        });
+    this.status = new Status();
+    this.statusSubscription = this.statusService.getStatus()
+      .subscribe(data => {
+        this.status = data;
+      });
   }
 
   ngOnDestroy() {
@@ -42,8 +42,8 @@ export class StaffComponent implements OnInit, OnDestroy {
   }
 
   resetMachine() {
-      this.workflowManager.stop();
-      this.machineService.softReset().subscribe();
+    this.workflowManager.stop();
+    this.machineService.softReset().subscribe();
   }
 
   stopSending() {
