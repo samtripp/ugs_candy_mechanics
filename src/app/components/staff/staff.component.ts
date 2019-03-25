@@ -8,6 +8,7 @@ import { FilesService  } from '../../services/files.service';
 import { WorkflowManager } from '../../workflow-manager';
 import { Status } from '../../model/status';
 import { StateEnum } from '../../model/state-enum';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-staff',
@@ -53,7 +54,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   returnToStart() {
     this.workflowManager.stop();
     this.workflowManager.setFile('');
-    this.machineService.sendCommands("G21 X100 Y100 Z100").subscribe();
+    this.machineService.sendCommands(environment.moveToOrigin).subscribe();
     this.router.navigate(['/select-file']);
   }
 }
