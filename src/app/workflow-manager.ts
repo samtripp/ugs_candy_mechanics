@@ -59,7 +59,7 @@ export class WorkflowManager {
             this.previousState = this.status.state;
 
             // If we changed the state to IDLE
-            if(this.status.state == StateEnum.IDLE) {
+            if(this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM) {
               this.onReadyForNextStep();
             }
           }
