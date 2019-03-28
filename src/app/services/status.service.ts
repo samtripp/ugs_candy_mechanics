@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map'
 import { Status } from '../model/status';
 import { StateEnum } from '../model/state-enum';
 import { Position } from '../model/position';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class StatusService {
    * Starts a timer and refreshes the status with event intervals
    */
   start() {
-    interval(200)
+    interval(environment.pollInterval)
     .pipe(
       switchMap(_ => this.refreshStatus()),
       retryWhen(errors =>
