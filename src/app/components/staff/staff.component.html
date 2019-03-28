@@ -1,7 +1,7 @@
 <div>
   <div class="controlButtons">
-    <button class="btn btn-primary" [disabled]="!isIdle()" (click)="disconnect()">Disconnect from machine</button>
-    <button class="btn btn-primary" [disabled]="!isIdle()" (click)="resetMachine()">Stop and reset machine</button>
+    <button class="btn btn-primary" (click)="disconnect()">Disconnect from machine</button>
+    <button class="btn btn-primary" (click)="resetMachine()">Stop and reset machine</button>
     <button class="btn btn-primary" [disabled]="!isIdle()" (click)="returnToStart()">Return to start</button>
     <button class="btn btn-primary" [disabled]="isIdle()" (click)="stopSending()">Stop sending</button>
   </div>
