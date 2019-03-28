@@ -38,23 +38,31 @@ export class StaffComponent implements OnInit, OnDestroy {
   }
 
   disconnect() {
-    this.workflowManager.stop();
-    this.machineService.disconnect().subscribe();
+    this.workflowManager.stop().subscribe(() => {
+      this.machineService.disconnect().subscribe();
+    });
   }
 
   resetMachine() {
-    this.workflowManager.stop();
-    this.machineService.softReset().subscribe();
+    this.workflowManager.stop().subscribe(() => {
+      this.machineService.softReset().subscribe(() => {
+        console.log("Killing alarm");
+        this.machineService.killAlarm().subscribe(() => {
+          this.router.navigate(['/select-file']);
+        });
+      });
+    });
   }
 
   stopSending() {
-    this.workflowManager.stop();
+    this.workflowManager.stop().subscribe();
   }
 
   returnToStart() {
-    this.workflowManager.stop();
-    this.workflowManager.setFile('');
-    this.machineService.sendCommands(environment.moveToOriginCommand).subscribe();
-    this.router.navigate(['/select-file']);
+    this.workflowManager.stop().subscribe(() => {
+      this.workflowManager.setFile('');
+      this.machineService.sendCommands(environment.moveToOriginCommand).subscribe();
+      this.router.navigate(['/select-file']);
+    });
   }
 }

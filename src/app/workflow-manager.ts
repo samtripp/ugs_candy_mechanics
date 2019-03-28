@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { StatusService } from './services/status.service';
 import { MachineService } from './services/machine.service';
@@ -50,28 +52,32 @@ export class WorkflowManager {
       this.workflowState = WorkflowStateEnum.STARTING;
       this.previousState = StateEnum.UNKNOWN;
 
-      this.statusService.getStatus()
-        .subscribe(data => {
-          this.status = data;
+      this.machineService.killAlarm().subscribe(() => {
+        this.statusService.getStatus()
+          .subscribe(data => {
+            this.status = data;
 
-          // Check if the state has changed
-          if(this.previousState != this.status.state) {
-            this.previousState = this.status.state;
+            // Check if the state has changed
+            if(this.previousState != this.status.state) {
+              this.previousState = this.status.state;
 
-            // If we changed the state to IDLE
-            if(this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM) {
-              this.onReadyForNextStep();
+              // If we changed the state to IDLE
+              if(this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM) {
+                this.onReadyForNextStep();
+              }
             }
-          }
+          });
         });
     }
   }
 
-  public stop() : void {
-    this.filesService.cancel().subscribe(() => {
-      this.workflowState = WorkflowStateEnum.ABORTED;
-      this.previousState = StateEnum.UNKNOWN;
-    });
+  public stop() : Observable<any> {
+    return this.filesService.cancel().pipe(
+      tap(() => {
+        this.workflowState = WorkflowStateEnum.ABORTED;
+        this.previousState = StateEnum.UNKNOWN;
+      })
+    );
   }
 
   public onReadyForNextStep() {
