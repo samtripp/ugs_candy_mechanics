@@ -54,7 +54,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   returnToStart() {
     this.workflowManager.stop();
     this.workflowManager.setFile('');
-    this.machineService.sendCommands(environment.moveToOrigin).subscribe();
+    this.machineService.sendCommands(environment.moveToOriginCommand).subscribe();
     this.router.navigate(['/select-file']);
   }
 }
