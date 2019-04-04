@@ -1,10 +1,29 @@
-<h2>Choose your name from the list</h2>
-<div class="fileSelect">
-  <ul>
-    <li *ngFor="let file of fileList">
-      <button type="button" class="btn btn-link" (click)="selectFile(file)">
-        {{formatFilename(file)}}
-      </button>
-    </li>
-  </ul>
+<div *ngIf="isReady()">
+  <h2>Choose your name from the list</h2>
+  <div class="fileSelect">
+    <ul>
+      <li *ngFor="let file of fileList">
+        <button type="button" class="btn btn-link" (click)="selectFile(file)">
+          {{formatFilename(file)}}
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="!isReady()">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card bg-light col-sm-10 col-md-6">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            Waiting for the machine to get become ready...
+          </div>
+          <div class="col-2">
+            <div class="spinner-border text-info" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
