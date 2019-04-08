@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 enum WorkflowStateEnum {
   WORKING = "WORKING",
   STARTING = "STARTING",
+  KILLING_ALARM = "KILLING_ALARM",
   HOMING = "HOMING",
   MOVE_TO_ORIGIN = "MOVE_TO_ORIGIN",
   SENDING = "SENDING",
@@ -52,21 +53,19 @@ export class WorkflowManager {
       this.workflowState = WorkflowStateEnum.STARTING;
       this.previousState = StateEnum.UNKNOWN;
 
-      this.machineService.killAlarm().subscribe(() => {
-        this.statusService.getStatus()
-          .subscribe(data => {
-            this.status = data;
+      this.statusService.getStatus()
+        .subscribe(data => {
+          this.status = data;
 
-            // Check if the state has changed
-            if(this.previousState != this.status.state) {
-              this.previousState = this.status.state;
+          // Check if the state has changed
+          if(this.previousState != this.status.state) {
+            this.previousState = this.status.state;
 
-              // If we changed the state to IDLE
-              if(this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM) {
-                this.onReadyForNextStep();
-              }
+            // If we changed the state to IDLE
+            if(this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM) {
+              this.onReadyForNextStep();
             }
-          });
+          }
         });
     }
   }
@@ -83,6 +82,8 @@ export class WorkflowManager {
   public onReadyForNextStep() {
     console.log("Ready for next step");
     if(this.workflowState == WorkflowStateEnum.STARTING) {
+      this.killAlarm();
+    } else if(this.workflowState == WorkflowStateEnum.KILLING_ALARM) {
       this.startHoming();
     } else if(this.workflowState == WorkflowStateEnum.HOMING) {
       this.moveToOrigin();
@@ -93,6 +94,16 @@ export class WorkflowManager {
     } else if (this.workflowState == WorkflowStateEnum.EJECTING) {
       this.finishedSending();
     }
+  }
+
+  killAlarm() {
+    console.log(" - Started killing alarm");
+    this.workflowState = WorkflowStateEnum.WORKING;
+
+    this.machineService.killAlarm().subscribe(() => {
+      this.workflowState = WorkflowStateEnum.KILLING_ALARM;
+      this.previousState = StateEnum.UNKNOWN;
+    });
   }
 
   startHoming() {

@@ -1,7 +1,7 @@
 <footer class="footer">
   <div class="container" *ngIf="isDebugEnabled()">
     <span class="badge" [ngClass]="{
-      'badge-success':status.state === 'RUN' || status.state === 'JOG',
+      'badge-success':status.state === 'RUN' || status.state === 'JOG' || status.state === 'HOME',
       'badge-secondary':status.state === 'IDLE' || status.state === 'UNKNOWN',
       'badge-info':status.state === 'HOLD',
       'badge-danger':status.state === 'ALARM' || status.state === 'DISCONNECTED' || status.state === 'UNAVAILABLE'}">State({{status.state}})</span>
