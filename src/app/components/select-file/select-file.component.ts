@@ -4,7 +4,7 @@ import { ISubscription } from "rxjs/Subscription";
 
 import { StatusService } from '../../services/status.service';
 import { FilesService } from '../../services/files.service';
-import { WorkflowManager } from '../../workflow-manager';
+import { WorkflowManagerService } from '../../services/workflow-manager.service';
 import { FileUtils } from '../../file-utils';
 import { Status } from '../../model/status';
 import { StateEnum } from '../../model/state-enum';
@@ -19,7 +19,7 @@ export class SelectFileComponent implements OnInit, OnDestroy {
   private status:Status;
   private fileList:string[];
 
-  constructor(private router: Router, private filesService:FilesService, private workflowManager:WorkflowManager, private statusService:StatusService) { }
+  constructor(private router: Router, private filesService:FilesService, private workflowManager:WorkflowManagerService, private statusService:StatusService) { }
 
   ngOnInit() {
     this.filesService.getWorkspaceFiles().subscribe(fileList => {

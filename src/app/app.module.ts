@@ -15,6 +15,7 @@ import { StaffComponent } from './components/staff/staff.component';
 import { StartPrintingComponent } from './components/start-printing/start-printing.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HasSelectedFileGuard } from './has-selected-file.guard';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HasSelectedFileGuard } from './has-selected-file.guard';
     StaffComponent,
     ConnectComponent,
     StartPrintingComponent,
-    FooterComponent
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

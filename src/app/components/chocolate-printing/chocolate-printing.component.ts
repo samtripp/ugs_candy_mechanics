@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 
 import { StatusService } from '../../services/status.service';
-import { WorkflowManager } from '../../workflow-manager';
+import { WorkflowManagerService } from '../../services/workflow-manager.service';
 import { Status } from '../../model/status';
 import { StateEnum } from '../../model/state-enum';
 import { FileUtils } from '../../file-utils';
@@ -18,7 +18,7 @@ export class ChocolatePrintingComponent implements OnInit, OnDestroy {
   private status:Status;
   private progress:number;
 
-  constructor( private router: Router, private workflowManager:WorkflowManager, private statusService:StatusService) { }
+  constructor( private router: Router, private workflowManager:WorkflowManagerService, private statusService:StatusService) { }
 
   ngOnInit() {
     this.status = new Status();

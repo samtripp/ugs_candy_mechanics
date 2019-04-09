@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { StatusService } from './services/status.service';
-import { MachineService } from './services/machine.service';
-import { FilesService } from './services/files.service';
-import { Status } from './model/status';
-import { StateEnum } from './model/state-enum';
-import { FileUtils } from './file-utils';
-import { environment } from '../environments/environment';
+import { StatusService } from '../services/status.service';
+import { MachineService } from '../services/machine.service';
+import { FilesService } from '../services/files.service';
+import { Status } from '../model/status';
+import { StateEnum } from '../model/state-enum';
+import { FileUtils } from '../file-utils';
+import { environment } from '../../environments/environment';
 
 enum WorkflowStateEnum {
   WORKING = "WORKING",
@@ -26,9 +26,8 @@ enum WorkflowStateEnum {
 @Injectable({
   providedIn: 'root'
 })
-export class WorkflowManager {
+export class WorkflowManagerService {
   private file:string;
-  private status:Status;
   private previousState: StateEnum;
   private workflowState: WorkflowStateEnum = WorkflowStateEnum.FINISHED;
 
@@ -49,21 +48,20 @@ export class WorkflowManager {
 
   public start() : void {
     if(!this.isRunning()) {
-      this.status = new Status();
       this.workflowState = WorkflowStateEnum.STARTING;
       this.previousState = StateEnum.UNKNOWN;
 
+      // Subscribe to status changes
       this.statusService.getStatus()
-        .subscribe(data => {
-          this.status = data;
+        .subscribe(status => {
 
           // Check if the state has changed
-          if(this.previousState != this.status.state) {
-            this.previousState = this.status.state;
+          if(this.previousState != status.state) {
+            this.previousState = status.state;
 
             // If we changed the state to IDLE
-            if(this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM) {
-              this.onReadyForNextStep();
+            if(status.state == StateEnum.IDLE || status.state == StateEnum.ALARM) {
+              this.changeToNextStep();
             }
           }
         });
@@ -79,19 +77,20 @@ export class WorkflowManager {
     );
   }
 
-  public onReadyForNextStep() {
+  public changeToNextStep() {
     console.log("Ready for next step");
-    if(this.workflowState == WorkflowStateEnum.STARTING) {
+    let previousWorkflowState = this.workflowState;
+    if( previousWorkflowState == WorkflowStateEnum.STARTING) {
       this.killAlarm();
-    } else if(this.workflowState == WorkflowStateEnum.KILLING_ALARM) {
+    } else if(previousWorkflowState == WorkflowStateEnum.KILLING_ALARM) {
       this.startHoming();
-    } else if(this.workflowState == WorkflowStateEnum.HOMING) {
+    } else if(previousWorkflowState == WorkflowStateEnum.HOMING) {
       this.moveToOrigin();
-    } else if(this.workflowState == WorkflowStateEnum.MOVE_TO_ORIGIN) {
+    } else if(previousWorkflowState == WorkflowStateEnum.MOVE_TO_ORIGIN) {
       this.sendFile();
-    } else if (this.workflowState == WorkflowStateEnum.SENDING) {
+    } else if (previousWorkflowState == WorkflowStateEnum.SENDING) {
       this.eject();
-    } else if (this.workflowState == WorkflowStateEnum.EJECTING) {
+    } else if (previousWorkflowState == WorkflowStateEnum.EJECTING) {
       this.finishedSending();
     }
   }

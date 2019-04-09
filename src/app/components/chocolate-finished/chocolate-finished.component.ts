@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ISubscription } from "rxjs/Subscription";
 
 import { FileUtils } from '../../file-utils';
-import { WorkflowManager } from '../../workflow-manager';
+import { WorkflowManagerService } from '../../services/workflow-manager.service';
 
 @Component({
   selector: 'app-chocolate-finished',
@@ -11,7 +11,7 @@ import { WorkflowManager } from '../../workflow-manager';
   styleUrls: ['./chocolate-finished.component.scss']
 })
 export class ChocolateFinishedComponent implements OnInit, OnDestroy {
-  constructor(private workflowManager:WorkflowManager) { }
+  constructor(private workflowManager:WorkflowManagerService) { }
 
   ngOnInit() {
   }

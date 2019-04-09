@@ -11,7 +11,6 @@ import { StateEnum } from './model/state-enum';
 export class AppComponent implements OnInit {
 
   private status: Status = new Status();
-  private showStaff: boolean = false;
 
   constructor(private statusService:StatusService) { }
 
@@ -29,9 +28,5 @@ export class AppComponent implements OnInit {
 
   isConnectedToController():boolean {
     return this.status.state != StateEnum.UNAVAILABLE && this.status.state != StateEnum.DISCONNECTED;
-  }
-
-  toggleStaff() {
-    this.showStaff = !this.showStaff;
   }
 }

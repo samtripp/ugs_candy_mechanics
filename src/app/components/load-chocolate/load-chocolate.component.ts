@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ISubscription } from "rxjs/Subscription";
 
-import { WorkflowManager } from '../../workflow-manager';
+import { WorkflowManagerService } from '../../services/workflow-manager.service';
 
 @Component({
   selector: 'app-load-chocolate',
@@ -10,7 +10,7 @@ import { WorkflowManager } from '../../workflow-manager';
 })
 export class LoadChocolateComponent implements OnInit, OnDestroy {
 
-  constructor(private workflowManager:WorkflowManager) { }
+  constructor(private workflowManager:WorkflowManagerService) { }
 
   ngOnInit() {
   }

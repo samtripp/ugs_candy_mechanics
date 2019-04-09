@@ -9,8 +9,15 @@ import { ChocolateFinishedComponent } from './components/chocolate-finished/choc
 import { HasSelectedFileGuard } from './has-selected-file.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/select-file', pathMatch: 'full' },
-  { path: 'select-file', component: SelectFileComponent },
+  {
+    path: '',
+    redirectTo: '/select-file',
+    pathMatch: 'full'
+  },
+  {
+    path: 'select-file',
+    component: SelectFileComponent
+  },
   {
     path: 'load-chocolate',
     component: LoadChocolateComponent,
@@ -31,8 +38,10 @@ const routes: Routes = [
     component: ChocolateFinishedComponent,
     canActivate: [HasSelectedFileGuard]
   },
-  { path: 'staff', component: StaffComponent },
-
+  {
+    path: 'staff',
+    component: StaffComponent
+  },
 ];
 
 
