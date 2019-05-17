@@ -1,4 +1,33 @@
-button {
-  margin-bottom: 1em;
-  margin-right: 1em;
+section.start {
+  width:100%;
+  height:100vh;
+  position:absolute;
+  top:0px;
+  left:0px;
+  // z-index:3;
+  background:#fff;
+  background-image:url(/assets/images/background.svg);
+  background-size:cover;
+  background-position:center;
+
+  .btn-primary {
+    font-size:3.5rem;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+  }
+
+  .btn-primary:active {
+    transform:translate(calc(-50% - 5px), calc(-50% + 5px));
+  }
+
+  h6 {
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    margin-top:-70px;
+  }
+
 }

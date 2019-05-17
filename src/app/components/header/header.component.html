@@ -1,10 +1,14 @@
-<div class="header">
-  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-    <a class="navbar-brand" href="#"><svg><use xlink:href="../assets/icons.svg#cm-logo"></use></svg></a>
-    <ul class="nav navbar-nav">
-      <li class="nav-item active">
-        <button class="btn btn-link" routerLinkActive="active" [routerLink]="['/staff']">Staff</button>
-      </li>
-    </ul>
-  </nav>
+<div class="help-btn-container">
+	<a class="help-btn" id="help-btn">Help</a>
 </div>
+
+<div class="staff-btn-container" id="staff-btn-container">
+	<a class="staff-btn" [routerLink]="['/staff']" id="staff-btn">Staff</a>
+</div>
+
+<section class="help" id="help">
+	<div class="help-box">
+		<h6>TO DO:</h6>
+		<h1>Speak to a customer advisor</h1>
+	</div>
+</section>

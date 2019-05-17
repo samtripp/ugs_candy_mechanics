@@ -11,9 +11,21 @@ import { WorkflowManagerService } from '../../services/workflow-manager.service'
   styleUrls: ['./chocolate-finished.component.scss']
 })
 export class ChocolateFinishedComponent implements OnInit, OnDestroy {
-  constructor(private workflowManager:WorkflowManagerService) { }
+  
+  constructor(private router: Router, private workflowManager:WorkflowManagerService) { }
+
+  
 
   ngOnInit() {
+
+    let $this = this;
+
+    let _video = document.getElementById('video');
+
+    _video.onended = function() {
+      $this.router.navigate(['/select-file']);
+    }
+
   }
 
   ngOnDestroy() {

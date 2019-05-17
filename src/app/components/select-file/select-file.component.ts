@@ -31,6 +31,44 @@ export class SelectFileComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.status = data;
       });
+
+    let _start = document.getElementById('start');
+    let _startBtn = document.getElementById('start-btn');
+    let _step1 = document.getElementById('step-1');
+    let _btnYes = document.getElementById('btn-yes');
+    let _btnNo = document.getElementById('btn-no');
+    let _step3 = document.getElementById('step-3');
+
+    let current = 0;
+
+    let _backBtn = document.getElementById('back-btn');
+    
+
+    _startBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      _start.classList.remove("show");
+      _step1.classList.add("show");
+      current = 1;
+    });
+
+    _btnYes.addEventListener('click', function(e) {
+      e.preventDefault();
+      _step1.classList.remove("show");
+      current = 2;
+    });
+
+    _backBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if(current === 1) {
+        _start.classList.add("show");
+        _step1.classList.remove("show");
+        current = 0;
+      } else if(current === 2) {
+        _step1.classList.add("show");
+        current = 1;
+      }
+    })
+
   }
 
   ngOnDestroy() {

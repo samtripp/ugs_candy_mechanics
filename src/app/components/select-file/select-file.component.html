@@ -1,23 +1,43 @@
-<div *ngIf="isReady()">
-  <h2>Choose your name from the list</h2>
-  <div class="fileSelect">
-    <ul>
-      <li *ngFor="let file of fileList">
-        <button type="button" class="btn btn-link" (click)="selectFile(file)">
-          {{formatFilename(file)}}
-        </button>
-      </li>
-    </ul>
-  </div>
-</div>
+<!-- <div *ngIf="isReady()"> -->
 
-<div *ngIf="!isReady()">
+  <section class="start show" id="start">
+    <img class="tapto" src="/assets/images/tapto.svg">
+    <a href="#" class="btn btn-primary" id="start-btn">START</a>
+    <img class="logo-tag" src="/assets/images/cmtagline.svg">
+  </section>
+
+  <section class="step-1" id="step-1">
+    <h6>STEP 1:</h6>
+    <h1>Have you made a scan?</h1>
+    <div class="button-container">
+      <a href="#" class="btn btn-secondary btn-no" id="btn-no">No</a>
+      <a href="#" class="btn btn-secondary btn-yes" id="btn-yes">Yes</a>
+    </div>
+  </section>
+
+  <section class="step-2" id="step-2">
+    
+      <h6>STEP 2:</h6>
+      <h1>What is your name?</h1>
+      <div class="fileSelect">
+        <ul>
+          <li *ngFor="let file of fileList">
+            <button type="button" class="btn btn-link" (click)="selectFile(file)">
+              {{formatFilename(file)}}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+  </section>
+
+<div *ngIf="!isReady()" class="not-ready">
   <div class="d-flex justify-content-center align-items-center">
     <div class="card bg-light col-sm-10 col-md-6">
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col">
-            Waiting for the machine to get become ready...
+            Waiting for the machine to become ready...
           </div>
           <div class="col-2">
             <div class="spinner-border text-info" role="status" aria-hidden="true"></div>
@@ -26,4 +46,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="back-btn-container">
+  <a href="#" class="back-btn" id="back-btn">Back</a>
 </div>

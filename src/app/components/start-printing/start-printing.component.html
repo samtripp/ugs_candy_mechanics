@@ -1,4 +1,13 @@
-<h2>{{getName()}} are you ready?</h2>
+<!-- <h2>{{getName()}} are you ready?</h2>
 <p>Get ready to see the magic. Feel free to film this amazing experience</p>
 <button class="btn btn-secondary" [routerLink]="['/select-file']">Cancel</button>
-<button class="btn btn-primary" (click)="startPrinting()">Print my chocolate</button>
+<button class="btn btn-primary" (click)="startPrinting()">Print my chocolate</button> -->
+
+<section class="start" id="start">
+	<h6>STEP 5:</h6>
+	<button (click)="startPrinting()" class="btn btn-primary" id="start-btn">START</button>
+</section>
+
+<div class="back-btn-container">
+  <a [routerLink]="['/load-chocolate']" class="back-btn">Back</a>
+</div>

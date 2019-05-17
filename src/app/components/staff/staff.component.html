@@ -1,8 +1,12 @@
-<div>
+<section class="staff">
   <div class="controlButtons">
-    <button class="btn btn-primary" (click)="disconnect()">Disconnect from machine</button>
-    <button class="btn btn-primary" (click)="resetMachine()">Stop and reset machine</button>
-    <button class="btn btn-primary" [disabled]="!isIdle()" (click)="returnToStart()">Return to start</button>
-    <button class="btn btn-primary" [disabled]="isIdle()" (click)="stopSending()">Stop sending</button>
+    <button class="btn btn-secondary yellow" (click)="disconnect()">Disconnect from machine</button>
+    <button class="btn btn-secondary blue" (click)="resetMachine()">Stop and reset machine</button>
+    <button class="btn btn-secondary darkblue" [disabled]="!isIdle()" (click)="returnToStart()">Return to start</button>
+    <button class="btn btn-secondary pink" [disabled]="isIdle()" (click)="stopSending()">Stop sending</button>
   </div>
+</section>
+
+<div class="back-btn-container">
+  <a [routerLink]="['/select-file']" class="back-btn">Back</a>
 </div>
