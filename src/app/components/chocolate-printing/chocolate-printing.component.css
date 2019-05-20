@@ -1,0 +1,69 @@
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  padding: 40px;
+  box-sizing: border-box; }
+
+p {
+  font-weight: 500; }
+
+h1 {
+  margin-bottom: 0px; }
+
+.text-info {
+  color: #007bff !important; }
+
+.progress-wrapper {
+  width: 100%; }
+  .progress-wrapper .progress {
+    display: block;
+    width: 100%;
+    border-radius: 100px;
+    height: 2em !important;
+    background-color: #123357 !important; }
+    .progress-wrapper .progress .progress-bar {
+      height: 100%;
+      background-color: #f8bf49 !important;
+      width: 0px; }
+
+.progress-wheel-wrapper {
+  width: 200px;
+  position: relative;
+  margin: 0 auto;
+  background: #123357; }
+  .progress-wheel-wrapper .progress-wheel-mask {
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+    left: 0px; }
+    .progress-wheel-wrapper .progress-wheel-mask img {
+      width: 100%;
+      height: 200px; }
+    .progress-wheel-wrapper .progress-wheel-mask .percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2; }
+      .progress-wheel-wrapper .progress-wheel-mask .percent h4 {
+        margin-bottom: 0px;
+        margin-top: 2px; }
+  .progress-wheel-wrapper .progress-wheel {
+    width: 100%; }
+    .progress-wheel-wrapper .progress-wheel svg {
+      width: 100%;
+      height: auto; }
+
+svg path {
+  stroke-dasharray: 413.392;
+  stroke-dashoffset: 413.392;
+  stroke: #f8bf49 !important;
+  transition: 0.2s; }
+
+/*# sourceMappingURL=chocolate-printing.component.css.map */
