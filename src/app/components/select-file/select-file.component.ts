@@ -39,6 +39,9 @@ export class SelectFileComponent implements OnInit, OnDestroy {
     let _btnNo = document.getElementById('btn-no');
     let _step3 = document.getElementById('step-3');
 
+    let _help = document.getElementById('help');
+    let _staffBtnContainer = document.getElementById('staff-btn-container');
+
     let current = 0;
 
     let _backBtn = document.getElementById('back-btn');
@@ -67,7 +70,15 @@ export class SelectFileComponent implements OnInit, OnDestroy {
         _step1.classList.add("show");
         current = 1;
       }
-    })
+    });
+
+    _btnNo.addEventListener('click', showHelp);
+
+    function showHelp(e) {
+      e.preventDefault();
+      _help.classList.add('show');
+      _staffBtnContainer.classList.add('show');
+    }
 
   }
 

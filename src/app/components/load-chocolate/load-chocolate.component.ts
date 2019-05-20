@@ -24,6 +24,12 @@ export class LoadChocolateComponent implements OnInit, OnDestroy {
       _step4.classList.add("show");
     }
 
+    _video.addEventListener('click', function(e) {
+      e.preventDefault();
+      _step3.classList.remove("show");
+      _step4.classList.add("show");
+    });
+
   }
 
   ngOnDestroy() {

@@ -31,11 +31,13 @@ export class HeaderComponent implements OnInit {
   		_staffBtnContainer.classList.remove('show');
   	});
 
-  	_help.addEventListener('click', function(e) {
-  		e.preventDefault();
-  		_help.classList.remove('show');
-  		_staffBtnContainer.classList.remove('show');
-  	});
+  	_help.addEventListener('click', hideHelp);
+
+    function hideHelp(e) {
+      e.preventDefault();
+      _help.classList.remove('show');
+      _staffBtnContainer.classList.remove('show');
+    }
 
   }
 

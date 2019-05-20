@@ -73,11 +73,19 @@ section.help {
 	flex-direction:column;
   	justify-content: center;
   	align-items:center;
+  	position:relative;
   }
 
 }
 
 section.help.show {
 	display:flex;
+}
+
+.closeBtn {
+	position: absolute;
+    width: 20px;
+    right: 10px;
+    top: 10px;
 }
 

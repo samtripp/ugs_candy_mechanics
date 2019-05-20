@@ -26,6 +26,11 @@ export class ChocolateFinishedComponent implements OnInit, OnDestroy {
       $this.router.navigate(['/select-file']);
     }
 
+    _video.addEventListener('click', function(e) {
+      e.preventDefault();
+      $this.router.navigate(['/select-file']);
+    });
+
   }
 
   ngOnDestroy() {
