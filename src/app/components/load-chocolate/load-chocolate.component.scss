@@ -13,6 +13,10 @@ section.step-3 {
   align-items:center;
   text-align: center;
   transition:opacity 1s;
+
+  h1 {
+    max-width: 540px;
+  }
 }
 
 

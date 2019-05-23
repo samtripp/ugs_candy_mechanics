@@ -19,6 +19,10 @@ export class LoadChocolateComponent implements OnInit, OnDestroy {
     let _step3 = document.getElementById('step-3');
     let _step4 = document.getElementById('step-4');
 
+    let _btnNo = document.getElementById('btn-no');
+    let _help = document.getElementById('help');
+    let _staffBtnContainer = document.getElementById('staff-btn-container');
+
     _video.onended = function() {
       _step3.classList.remove("show");
       _step4.classList.add("show");
@@ -29,6 +33,14 @@ export class LoadChocolateComponent implements OnInit, OnDestroy {
       _step3.classList.remove("show");
       _step4.classList.add("show");
     });
+
+    _btnNo.addEventListener('click', showHelp);
+
+    function showHelp(e) {
+      e.preventDefault();
+      _help.classList.add('show');
+      _staffBtnContainer.classList.add('show');
+    }
 
   }
 
