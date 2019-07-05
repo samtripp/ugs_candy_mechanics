@@ -3,7 +3,6 @@ import { ISubscription } from "rxjs/Subscription";
 
 import { StatusService } from '../../services/status.service';
 import { Status } from '../../model/status';
-import { StateEnum } from '../../model/state-enum';
 import { environment } from '../../../environments/environment';
 
 @Component({

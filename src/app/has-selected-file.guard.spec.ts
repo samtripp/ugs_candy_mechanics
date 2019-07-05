@@ -1,11 +1,17 @@
 import { TestBed, async, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { HasSelectedFileGuardGuard } from './has-selected-file.guard';
+import { HasSelectedFileGuard } from './has-selected-file.guard';
 
-describe('HasSelectedFileGuardGuard', () => {
+describe('HasSelectedFileGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HasSelectedFileGuard]
+      providers: [HasSelectedFileGuard],
+      imports: [
+        RouterTestingModule,
+        HttpClientModule
+      ]
     });
   });
 
