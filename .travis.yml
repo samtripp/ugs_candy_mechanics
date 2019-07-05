@@ -11,6 +11,7 @@ cache:
   directories:
   - "$HOME/.npm"
 
-install:
+script:
+- npm install
 - npm run build-prod
 
