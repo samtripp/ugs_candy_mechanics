@@ -13,5 +13,20 @@ cache:
 
 script:
 - npm install
+- npm run test-headless
 - npm run build-prod
 
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Joacim Breiler"
+  - git config --local user.email "joacim@breiler.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/ugs-candy-mechanics
+  on:
+    branch: master
