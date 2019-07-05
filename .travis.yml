@@ -15,7 +15,7 @@ script:
 - npm install
 #- npm run test-headless
 - npm run build-prod
-- tar -zcvf ugs-candy-mechanics.tar.gz dist/ugs-candy-mechanic
+- tar -zcvf $TRAVIS_BUILD_DIR/ugs-candy-mechanics.tar.gz $TRAVIS_BUILD_DIR/dist/ugs-candy-mechanic
 
 before_deploy:
   # Set up git user name and tag this commit
