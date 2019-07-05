@@ -8,68 +8,84 @@ import { MachineService } from '../../services/machine.service'
 })
 export class ConnectComponent implements OnInit {
 
-  private firmwareList:string[];
-  private selectedFirmware:string;
+  private _firmwareList:string[];
+  private _selectedFirmware:string;
 
-  private portList:string[];
-  private selectedPort:string;
+  private _portList:string[];
+  private _selectedPort:string;
 
-  private baudRateList:string[];
-  private selectedBaudRate:string;
+  private _baudRateList:string[];
+  private _selectedBaudRate:string;
 
-  constructor(private machineService:MachineService) { }
+  constructor(private _machineService:MachineService) { }
 
   ngOnInit() {
     this.updateData();
   }
 
   updateData() {
-    this.machineService.getSelectedFirmware().subscribe(selectedFirmware => {
-      this.selectedFirmware = selectedFirmware;
+    this._machineService.getSelectedFirmware().subscribe(selectedFirmware => {
+      this._selectedFirmware = selectedFirmware;
     });
 
-    this.machineService.getFirmwareList().subscribe(firmwareList => {
-      this.firmwareList = firmwareList;
+    this._machineService.getFirmwareList().subscribe(firmwareList => {
+      this._firmwareList = firmwareList;
     });
 
-    this.machineService.getSelectedPort().subscribe(selectedPort => {
-      this.selectedPort = selectedPort;
+    this._machineService.getSelectedPort().subscribe(selectedPort => {
+      this._selectedPort = selectedPort;
     });
 
-    this.machineService.getPortList().subscribe(portList => {
-      this.portList = portList;
+    this._machineService.getPortList().subscribe(portList => {
+      this._portList = portList;
     });
 
-    this.machineService.getBaudRateList().subscribe(baudRateList => {
-      this.baudRateList = baudRateList;
+    this._machineService.getBaudRateList().subscribe(baudRateList => {
+      this._baudRateList = baudRateList;
     });
 
-    this.machineService.getSelectedBaudRate().subscribe(baudRate => {
-      this.selectedBaudRate = baudRate;
+    this._machineService.getSelectedBaudRate().subscribe(baudRate => {
+      this._selectedBaudRate = baudRate;
     });
   }
 
   onSelectFirmware($event) {
-    this.machineService
-      .setSelectedFirmware(this.selectedFirmware)
+    this._machineService
+      .setSelectedFirmware(this._selectedFirmware)
       .subscribe();
   }
 
   onSelectBaudRate($event) {
-    this.machineService
-      .setSelectedBaudRate(this.selectedBaudRate)
+    this._machineService
+      .setSelectedBaudRate(this._selectedBaudRate)
       .subscribe();
   }
 
   onSelectPort($event) {
-    this.machineService
-      .setSelectedPort(this.selectedPort)
+    this._machineService
+      .setSelectedPort(this._selectedPort)
       .subscribe();
   }
 
   connect() {
-    this.machineService
+    this._machineService
       .connect()
       .subscribe();
+  }
+
+  get selectedPort(): string {
+    return this._selectedPort;
+  }
+
+  set selectedPort(selectedPort:string) {
+    this._selectedPort = selectedPort;
+  }
+
+  get portList(): string[] {
+    return this._portList;
+  }
+
+  get baudRateList(): string[] {
+    return this._baudRateList;
   }
 }

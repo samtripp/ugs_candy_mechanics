@@ -17,13 +17,13 @@ import { StateEnum } from '../../model/state-enum';
 export class SelectFileComponent implements OnInit, OnDestroy {
   private statusSubscription:ISubscription;
   private status:Status;
-  private fileList:string[];
+  private _fileList:string[];
 
   constructor(private router: Router, private filesService:FilesService, private workflowManager:WorkflowManagerService, private statusService:StatusService) { }
 
   ngOnInit() {
     this.filesService.getWorkspaceFiles().subscribe(fileList => {
-      this.fileList = fileList;
+      this._fileList = fileList;
     });
 
     this.status = new Status();
@@ -79,7 +79,6 @@ export class SelectFileComponent implements OnInit, OnDestroy {
       _help.classList.add('show');
       _staffBtnContainer.classList.add('show');
     }
-
   }
 
   ngOnDestroy() {
@@ -96,5 +95,9 @@ export class SelectFileComponent implements OnInit, OnDestroy {
 
   isReady() : boolean {
     return this.status !== undefined && (this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM);
+  }
+
+  get fileList(): string[] {
+    return this._fileList;
   }
 }
