@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class FilesService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   send(): Observable<any> {
     return this.http.post('/api/v1/files/send', null);
@@ -21,8 +21,8 @@ export class FilesService {
     return this.http.get('/api/v1/files/cancel');
   }
 
-  uploadAndOpen(file:File): Observable<any> {
-    let formData:FormData = new FormData();
+  uploadAndOpen(file: File): Observable<any> {
+    let formData: FormData = new FormData();
     formData.append('file', file, file.name);
     return this.http.post("/api/v1/files/uploadAndOpen", formData)
       .map((response: Response) => {
@@ -37,7 +37,7 @@ export class FilesService {
       });
   }
 
-  openWorkspaceFile(file:string): Observable<any> {
+  openWorkspaceFile(file: string): Observable<any> {
     return this.http.post<any>("/api/v1/files/openWorkspaceFile?file=" + file, null);
   }
 }

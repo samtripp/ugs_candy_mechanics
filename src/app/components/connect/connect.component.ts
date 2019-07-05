@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MachineService } from '../../services/machine.service'
+import { MachineService } from '../../services/machine.service';
 
 @Component({
   selector: 'app-connect',
@@ -8,16 +8,16 @@ import { MachineService } from '../../services/machine.service'
 })
 export class ConnectComponent implements OnInit {
 
-  private _firmwareList:string[];
-  private _selectedFirmware:string;
+  private _firmwareList: string[];
+  private _selectedFirmware: string;
 
-  private _portList:string[];
-  private _selectedPort:string;
+  private _portList: string[];
+  private _selectedPort: string;
 
-  private _baudRateList:string[];
-  private _selectedBaudRate:string;
+  private _baudRateList: string[];
+  private _selectedBaudRate: string;
 
-  constructor(private _machineService:MachineService) { }
+  constructor(private _machineService: MachineService) { }
 
   ngOnInit() {
     this.updateData();

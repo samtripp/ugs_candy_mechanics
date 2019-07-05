@@ -15,9 +15,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class StatusService {
-  private statusSubject:Subject<Status> = new Subject<Status>();
+  private statusSubject: Subject<Status> = new Subject<Status>();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getStatus(): Observable<Status> {
     return this.statusSubject;
@@ -35,7 +35,7 @@ export class StatusService {
         errors.pipe(
           // On error send an invalid status
           tap(error => {
-            let status = new Status();
+            const status = new Status();
             status.state = StateEnum.UNAVAILABLE;
             this.statusSubject.next(status);
           }),
@@ -47,10 +47,10 @@ export class StatusService {
     .subscribe();
   }
 
-  refreshStatus():Observable<Status> {
+  refreshStatus(): Observable<Status> {
     return this.http.get<Status>('/api/v1/status/getStatus')
       .map(response => {
-        let status = new Status();
+        const status = new Status();
         status.state = response.state;
         status.fileName = response.fileName;
         status.rowCount = response.rowCount;
@@ -60,11 +60,13 @@ export class StatusService {
         status.sendRemainingDuration = response.sendRemainingDuration;
 
         if (response.workCoord) {
-          status.workCoord = new Position(response.workCoord.x, response.workCoord.y, response.workCoord.z, response.workCoord.units);
+          status.workCoord = new Position(response.workCoord.x, response.workCoord.y, response.workCoord.z,
+            response.workCoord.units);
         }
 
         if (response.machineCoord) {
-          status.machineCoord = new Position(response.machineCoord.x, response.machineCoord.y, response.machineCoord.z, response.machineCoord.units);
+          status.machineCoord = new Position(response.machineCoord.x, response.machineCoord.y, response.machineCoord.z,
+            response.machineCoord.units);
         }
         return status;
       })

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
 import { StatusService } from '../../services/status.service';
@@ -16,10 +16,10 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./staff.component.scss']
 })
 export class StaffComponent implements OnInit, OnDestroy {
-  private status:Status;
-  private statusSubscription:ISubscription;
+  private status: Status;
+  private statusSubscription: ISubscription;
 
-  constructor(private router: Router, private statusService:StatusService, private machineService:MachineService, private filesService:FilesService, private workflowManager:WorkflowManagerService) { }
+  constructor(private router: Router, private statusService: StatusService, private machineService: MachineService, private filesService: FilesService, private workflowManager: WorkflowManagerService) { }
 
   ngOnInit() {
     this.status = new Status();
@@ -33,7 +33,7 @@ export class StaffComponent implements OnInit, OnDestroy {
     this.statusSubscription.unsubscribe();
   }
 
-  isIdle() : boolean {
+  isIdle(): boolean {
     return this.status.state == StateEnum.IDLE;
   }
 

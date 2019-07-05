@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 
 import { StatusService } from '../../services/status.service';
 import { FilesService } from '../../services/files.service';
@@ -15,9 +15,9 @@ import { StateEnum } from '../../model/state-enum';
   styleUrls: ['./select-file.component.scss']
 })
 export class SelectFileComponent implements OnInit, OnDestroy {
-  private statusSubscription:ISubscription;
-  private status:Status;
-  private _fileList:string[];
+  private statusSubscription: ISubscription;
+  private status: Status;
+  private _fileList: string[];
 
   constructor(private router: Router, private filesService:FilesService, private workflowManager:WorkflowManagerService, private statusService:StatusService) { }
 
@@ -84,16 +84,16 @@ export class SelectFileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  selectFile(file:string) {
+  selectFile(file: string) {
     this.workflowManager.setFile(file);
     this.router.navigate(['/load-chocolate']);
   }
 
-  formatFilename(file:string) : string {
+  formatFilename(file: string): string {
     return FileUtils.convertFilename(file);
   }
 
-  isReady() : boolean {
+  isReady(): boolean {
     return this.status !== undefined && (this.status.state == StateEnum.IDLE || this.status.state == StateEnum.ALARM);
   }
 

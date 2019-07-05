@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 
 import { WorkflowManagerService } from '../../services/workflow-manager.service';
 
@@ -10,18 +10,18 @@ import { WorkflowManagerService } from '../../services/workflow-manager.service'
 })
 export class LoadChocolateComponent implements OnInit, OnDestroy {
 
-  constructor(private workflowManager:WorkflowManagerService) { }
+  constructor(private workflowManager: WorkflowManagerService) { }
 
   ngOnInit() {
 
-    let _video = document.getElementById('video');
+    const _video = document.getElementById('video');
 
-    let _step3 = document.getElementById('step-3');
-    let _step4 = document.getElementById('step-4');
+    const _step3 = document.getElementById('step-3');
+    const _step4 = document.getElementById('step-4');
 
-    let _btnNo = document.getElementById('btn-no');
-    let _help = document.getElementById('help');
-    let _staffBtnContainer = document.getElementById('staff-btn-container');
+    const _btnNo = document.getElementById('btn-no');
+    const _help = document.getElementById('help');
+    const _staffBtnContainer = document.getElementById('staff-btn-container');
 
     _video.onended = function() {
       _step3.classList.remove("show");
@@ -47,7 +47,7 @@ export class LoadChocolateComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  getName() : string {
+  getName(): string {
     return this.workflowManager.getName();
   }
 }

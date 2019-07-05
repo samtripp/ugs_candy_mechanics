@@ -13,15 +13,15 @@ export class Macro {
     return this._name;
   }
 
-  set name(name:string) {
+  set name(name: string) {
     this._name = name;
   }
 
-  get description():string {
+  get description(): string {
     return this._description;
   }
 
-  set description(description:string) {
+  set description(description: string) {
     this._description = description;
   }
 
@@ -29,7 +29,7 @@ export class Macro {
     return this._gcode;
   }
 
-  set gcode(gcode:string) {
+  set gcode(gcode: string) {
     this._gcode = gcode;
   }
 }

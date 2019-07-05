@@ -15,75 +15,75 @@ export class Status {
   constructor() {
   }
 
-  set state(state:StateEnum) {
+  set state(state: StateEnum) {
     this._state = state;
   }
 
-  get state():StateEnum {
+  get state(): StateEnum {
     return this._state;
   }
 
-  set machineCoord(machineCoord:Position) {
+  set machineCoord(machineCoord: Position) {
     this._machineCoord = machineCoord;
   }
 
-  get machineCoord():Position {
+  get machineCoord(): Position {
     return this._machineCoord;
   }
 
-  set workCoord(workCoord:Position) {
+  set workCoord(workCoord: Position) {
     this._workCoord = workCoord;
   }
 
-  get workCoord():Position {
+  get workCoord(): Position {
     return this._workCoord;
   }
 
-  set fileName(fileName:string) {
+  set fileName(fileName: string) {
     this._fileName = fileName;
   }
 
-  get fileName():string {
+  get fileName(): string {
     return this._fileName;
   }
 
-  set rowCount(rowCount:number) {
+  set rowCount(rowCount: number) {
     this._rowCount = rowCount;
   }
 
-  get rowCount():number {
+  get rowCount(): number {
     return this._rowCount;
   }
 
-  set completedRowCount(completedRowCount:number) {
+  set completedRowCount(completedRowCount: number) {
     this._completedRowCount = completedRowCount;
   }
 
-  get completedRowCount():number {
+  get completedRowCount(): number {
     return this._completedRowCount;
   }
 
-  set remainingRowCount(remainingRowCount:number) {
+  set remainingRowCount(remainingRowCount: number) {
     this._remainingRowCount = remainingRowCount;
   }
 
-  get remainingRowCount():number {
+  get remainingRowCount(): number {
     return this._remainingRowCount;
   }
 
-  set sendDuration(sendDuration:number) {
+  set sendDuration(sendDuration: number) {
     this._sendDuration = sendDuration;
   }
 
-  get sendDuration():number {
+  get sendDuration(): number {
     return this._sendDuration;
   }
 
-  set sendRemainingDuration(sendRemainingDuration:number) {
+  set sendRemainingDuration(sendRemainingDuration: number) {
     this._sendRemainingDuration = sendRemainingDuration;
   }
 
-  get sendRemainingDuration():number {
+  get sendRemainingDuration(): number {
     return this._sendRemainingDuration;
   }
 }

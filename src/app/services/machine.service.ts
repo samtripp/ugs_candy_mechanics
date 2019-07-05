@@ -9,7 +9,7 @@ import { AxisEnum } from '../model/axis-enum';
 })
 export class MachineService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   connect(): Observable<string[]> {
     return this.http.get<string[]>('/api/v1/machine/connect');
@@ -27,7 +27,7 @@ export class MachineService {
     return this.http.get<any>('/api/v1/machine/getSelectedBaudRate').map(baudRate => baudRate.selectedBaudRate);
   }
 
-  setSelectedBaudRate(baudRate:string): Observable<any> {
+  setSelectedBaudRate(baudRate: string): Observable<any> {
     return this.http.post('/api/v1/machine/setSelectedBaudRate?baudRate=' + baudRate, null);
   }
 
@@ -39,7 +39,7 @@ export class MachineService {
     return this.http.get<any>('/api/v1/machine/getSelectedPort').map(port => port.selectedPort);
   }
 
-  setSelectedPort(port:string): Observable<any> {
+  setSelectedPort(port: string): Observable<any> {
     return this.http.post('/api/v1/machine/setSelectedPort?port=' + port, null);
   }
 
@@ -51,7 +51,7 @@ export class MachineService {
     return this.http.get<any>('/api/v1/machine/getSelectedFirmware').map(firmware => firmware.selectedFirmware);
   }
 
-  setSelectedFirmware(firmware:string): Observable<any> {
+  setSelectedFirmware(firmware: string): Observable<any> {
     return this.http.post('/api/v1/machine/setSelectedFirmware?firmware=' + firmware, null);
   }
 
@@ -79,11 +79,11 @@ export class MachineService {
     }
   }
 
-  jog(x:number, y:number, z:number): Observable<any> {
+  jog(x: number, y: number, z: number): Observable<any> {
     return this.http.get('/api/v1/machine/jog?x=' + x + '&y=' + y + '&z=' + z);
   }
 
-  sendCommands(commands:string): Observable<any> {
+  sendCommands(commands: string): Observable<any> {
     var gcodeCommands = {
       commands: commands
     };

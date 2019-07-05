@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
 import { WorkflowManagerService } from '../../services/workflow-manager.service';
@@ -13,7 +13,7 @@ import { FileUtils } from '../../file-utils';
 export class StartPrintingComponent implements OnInit, OnDestroy {
   private routeSubscription:ISubscription;
 
-  constructor(private router: Router, private workflowManager:WorkflowManagerService) { }
+  constructor(private router: Router, private workflowManager: WorkflowManagerService) { }
 
   ngOnInit() {
   }
@@ -21,7 +21,7 @@ export class StartPrintingComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  getName() : string {
+  getName(): string {
     return this.workflowManager.getName();
   }
 

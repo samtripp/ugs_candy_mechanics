@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   private status: Status = new Status();
 
-  constructor(private statusService:StatusService) { }
+  constructor(private statusService: StatusService) { }
 
   ngOnInit() {
     // Start polling for status reports
@@ -22,11 +22,11 @@ export class AppComponent implements OnInit {
     this.statusService.getStatus().subscribe(status => this.status = status);
   }
 
-  isConnectedToPendantAPI():boolean {
-    return this.status.state != StateEnum.UNAVAILABLE;
+  isConnectedToPendantAPI(): boolean {
+    return this.status.state !== StateEnum.UNAVAILABLE;
   }
 
-  isConnectedToController():boolean {
-    return this.status.state != StateEnum.UNAVAILABLE && this.status.state != StateEnum.DISCONNECTED;
+  isConnectedToController(): boolean {
+    return this.status.state !== StateEnum.UNAVAILABLE && this.status.state !== StateEnum.DISCONNECTED;
   }
 }

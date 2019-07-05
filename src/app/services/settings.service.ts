@@ -39,11 +39,11 @@ export class SettingsService {
     .subscribe();
   }
 
-  getSettings():Subject<Settings> {
+  getSettings(): Subject<Settings> {
     return this.settingsSubject;
   }
 
-  refreshSettings():Observable<Settings> {
+  refreshSettings(): Observable<Settings> {
     return this.http.get<any>('/api/v1/settings/getSettings')
       .map(response => {
         let settings = new Settings();
@@ -58,7 +58,7 @@ export class SettingsService {
       );
   }
 
-  setSettings(settings:Settings):Observable<any> {
+  setSettings(settings: Settings):Observable<any> {
     let object = {
       jogFeedRate: settings.jogFeedRate,
       jogStepSizeXY: settings.jogStepSizeXY,

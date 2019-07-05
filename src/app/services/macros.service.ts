@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map'
   providedIn: 'root'
 })
 export class MacrosService {
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getMacroList():Observable<Macro[]> {
     return this.http.get<any[]>('/api/v1/macros/getMacroList')
@@ -24,7 +24,7 @@ export class MacrosService {
       });
   }
 
-  runMacro(macro:Macro) {
+  runMacro(macro: Macro) {
     let data = {
       gcode: macro.gcode,
       name: macro.name,

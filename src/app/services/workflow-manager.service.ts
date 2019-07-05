@@ -12,42 +12,43 @@ import { FileUtils } from '../file-utils';
 import { environment } from '../../environments/environment';
 
 enum WorkflowStateEnum {
-  WORKING = "WORKING",
-  STARTING = "STARTING",
-  KILLING_ALARM = "KILLING_ALARM",
-  HOMING = "HOMING",
-  MOVE_TO_ORIGIN = "MOVE_TO_ORIGIN",
-  SENDING = "SENDING",
-  FINISHED = "FINISHED",
-  EJECTING = "EJECTING",
-  ABORTED = "ABORTED"
+  WORKING = 'WORKING',
+  STARTING = 'STARTING',
+  KILLING_ALARM = 'KILLING_ALARM',
+  HOMING = 'HOMING',
+  MOVE_TO_ORIGIN = 'MOVE_TO_ORIGIN',
+  SENDING = 'SENDING',
+  FINISHED = 'FINISHED',
+  EJECTING = 'EJECTING',
+  ABORTED = 'ABORTED'
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkflowManagerService {
-  private file:string;
+  private file: string;
   private previousState: StateEnum;
   private workflowState: WorkflowStateEnum = WorkflowStateEnum.FINISHED;
 
-  constructor(private router: Router, private statusService:StatusService, private machineService:MachineService, private filesService:FilesService) {
+  constructor(private router: Router, private statusService: StatusService, private machineService: MachineService,
+    private filesService: FilesService) {
   }
 
-  public setFile(file:string) {
+  public setFile(file: string) {
     this.file = file;
   }
 
-  public getFile() : string {
+  public getFile(): string {
     return this.file;
   }
 
-  public getName() : string {
+  public getName(): string {
     return FileUtils.convertFilename(this.file);
   }
 
-  public start() : void {
-    if(!this.isRunning()) {
+  public start(): void {
+    if (!this.isRunning()) {
       this.workflowState = WorkflowStateEnum.STARTING;
       this.previousState = StateEnum.UNKNOWN;
 
@@ -56,11 +57,11 @@ export class WorkflowManagerService {
         .subscribe(status => {
 
           // Check if the state has changed
-          if(this.previousState != status.state) {
+          if (this.previousState !== status.state) {
             this.previousState = status.state;
 
             // If we changed the state to IDLE
-            if(status.state == StateEnum.IDLE || status.state == StateEnum.ALARM) {
+            if (status.state === StateEnum.IDLE || status.state === StateEnum.ALARM) {
               this.changeToNextStep();
             }
           }
@@ -68,7 +69,7 @@ export class WorkflowManagerService {
     }
   }
 
-  public stop() : Observable<any> {
+  public stop(): Observable<any> {
     return this.filesService.cancel().pipe(
       tap(() => {
         this.workflowState = WorkflowStateEnum.ABORTED;
@@ -78,25 +79,25 @@ export class WorkflowManagerService {
   }
 
   public changeToNextStep() {
-    console.log("Ready for next step");
-    let previousWorkflowState = this.workflowState;
-    if( previousWorkflowState == WorkflowStateEnum.STARTING) {
+    console.log('Ready for next step');
+    const previousWorkflowState = this.workflowState;
+    if ( previousWorkflowState === WorkflowStateEnum.STARTING) {
       this.killAlarm();
-    } else if(previousWorkflowState == WorkflowStateEnum.KILLING_ALARM) {
+    } else if (previousWorkflowState === WorkflowStateEnum.KILLING_ALARM) {
       this.startHoming();
-    } else if(previousWorkflowState == WorkflowStateEnum.HOMING) {
+    } else if (previousWorkflowState === WorkflowStateEnum.HOMING) {
       this.moveToOrigin();
-    } else if(previousWorkflowState == WorkflowStateEnum.MOVE_TO_ORIGIN) {
+    } else if (previousWorkflowState === WorkflowStateEnum.MOVE_TO_ORIGIN) {
       this.sendFile();
-    } else if (previousWorkflowState == WorkflowStateEnum.SENDING) {
+    } else if (previousWorkflowState === WorkflowStateEnum.SENDING) {
       this.eject();
-    } else if (previousWorkflowState == WorkflowStateEnum.EJECTING) {
+    } else if (previousWorkflowState === WorkflowStateEnum.EJECTING) {
       this.finishedSending();
     }
   }
 
   killAlarm() {
-    console.log(" - Started killing alarm");
+    console.log(' - Started killing alarm');
     this.workflowState = WorkflowStateEnum.WORKING;
 
     this.machineService.killAlarm().subscribe(() => {
@@ -107,7 +108,7 @@ export class WorkflowManagerService {
 
   startHoming() {
     // Changing the state to let others know we are busy
-    console.log(" - Started homing");
+    console.log(' - Started homing');
     this.workflowState = WorkflowStateEnum.WORKING;
 
     // Start homing
@@ -115,20 +116,20 @@ export class WorkflowManagerService {
         this.workflowState = WorkflowStateEnum.HOMING;
       },
       (error) => {
-        if(error.status == 412) {
-          console.error(" - Homing is not activated on server");
+        if (error.status === 412) {
+          console.error(' - Homing is not activated on server');
           this.workflowState = WorkflowStateEnum.HOMING;
           this.previousState = StateEnum.UNKNOWN;
         } else {
           // TODO handle error
-          console.error("Couldn't home machine!");
+          console.error('Could not home machine!');
         }
       });
   }
 
   moveToOrigin() {
     // Changing the state to let others know we are busy
-    console.log(" - Moving to origin");
+    console.log(' - Moving to origin');
     this.workflowState = WorkflowStateEnum.WORKING;
 
     this.machineService.sendCommands(environment.moveToOriginCommand).subscribe(() => {
@@ -136,13 +137,13 @@ export class WorkflowManagerService {
       this.previousState = StateEnum.UNKNOWN;
     },
     (error) => {
-      console.error("Couldn't move to origin");
+      console.error('Could not move to origin');
     });
   }
 
   sendFile() {
     // Changing the state to let others know we are busy
-    console.log(" - Sending file");
+    console.log(' - Sending file');
     this.workflowState = WorkflowStateEnum.WORKING;
 
     this.filesService.openWorkspaceFile(this.file).subscribe(() => {
@@ -150,17 +151,17 @@ export class WorkflowManagerService {
         this.workflowState = WorkflowStateEnum.SENDING;
       },
       (error) => {
-        console.error("Couldn't send file!");
+        console.error('Could not send file!');
       });
     },
     (error) => {
-      console.error("Couldn't set file!");
+      console.error('Could not set file!');
     });
   }
 
   eject() {
     // Changing the state to let others know we are busy
-    console.log(" - Ejecting");
+    console.log(' - Ejecting');
     this.workflowState = WorkflowStateEnum.WORKING;
 
     this.machineService.sendCommands(environment.ejectCommand).subscribe(() => {
@@ -168,33 +169,33 @@ export class WorkflowManagerService {
       this.previousState = StateEnum.UNKNOWN;
     },
     (error) => {
-      console.error("Couldn't eject");
+      console.error('Could not eject');
     });
   }
 
   finishedSending() {
-    console.log(" - Finished sending");
+    console.log(' - Finished sending');
     this.workflowState = WorkflowStateEnum.FINISHED;
     this.router.navigate(['/chocolate-finished']);
   }
 
-  isRunning() : boolean {
-    return this.workflowState != WorkflowStateEnum.ABORTED && this.workflowState != WorkflowStateEnum.FINISHED;
+  isRunning(): boolean {
+    return this.workflowState !== WorkflowStateEnum.ABORTED && this.workflowState !== WorkflowStateEnum.FINISHED;
   }
 
-  isSending() : boolean {
-    return this.workflowState == WorkflowStateEnum.SENDING;
+  isSending(): boolean {
+    return this.workflowState === WorkflowStateEnum.SENDING;
   }
 
-  isHoming() : boolean {
-    return this.workflowState == WorkflowStateEnum.HOMING;
+  isHoming(): boolean {
+    return this.workflowState === WorkflowStateEnum.HOMING;
   }
 
-  isMovingToOrigin() : boolean {
-    return this.workflowState == WorkflowStateEnum.MOVE_TO_ORIGIN;
+  isMovingToOrigin(): boolean {
+    return this.workflowState === WorkflowStateEnum.MOVE_TO_ORIGIN;
   }
 
-  isEjecting() : boolean {
-    return this.workflowState == WorkflowStateEnum.EJECTING;
+  isEjecting(): boolean {
+    return this.workflowState === WorkflowStateEnum.EJECTING;
   }
 }
