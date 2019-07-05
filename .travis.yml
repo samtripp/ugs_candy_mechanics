@@ -15,6 +15,7 @@ script:
 - npm install
 - npm run test-headless
 - npm run build-prod
+- tar -zcvf ugs-candy-mechanics.tar.gz dist/ugs-candy-mechanic
 
 before_deploy:
   # Set up git user name and tag this commit
@@ -27,6 +28,6 @@ deploy:
   provider: releases
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: dist/ugs-candy-mechanics
+  file: ugs-candy-mechanics.tar.gz
   on:
     branch: master
