@@ -1,3 +1,5 @@
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -14,8 +16,10 @@ import { environment } from '../../environments/environment';
 export class FilesService {
 
   private workspaceFilesSubject: Subject<string[]> = new Subject<string[]>();
+  private processedFilesSubject: Subject<string[]> = new Subject<string[]>();
 
-  constructor(private http: HttpClient) { }
+  constructor(public storage: LocalStorageService, private http: HttpClient) {
+  }
 
   /**
    * Starts a timer and refreshes the files on intervals
@@ -37,6 +41,20 @@ export class FilesService {
       )
     )
     .subscribe();
+  }
+
+  getProcessedFiles(): Observable<string[]> {
+    return this.processedFilesSubject;
+  }
+
+  addProcessedFile(file: string) {
+      let processedFiles = this.storage.get("processedFiles");
+      if (!processedFiles) {
+        processedFiles = [];
+      }
+
+      processedFiles.push(file);
+      this.storage.set("processedFiles", processedFiles);
   }
 
   send(): Observable<any> {
@@ -65,9 +83,25 @@ export class FilesService {
   }
 
   refreshWorkspaceFiles() {
+    let processedFiles = this.storage.get("processedFiles");
+    if (!processedFiles) {
+      processedFiles = [];
+    }
+
+    this.processedFilesSubject.next(processedFiles);
+
+
     return this.http.get<any>("/api/v1/files/getWorkspaceFileList")
       .map((response: any) => {
-          return response.fileList;
+          let processedFiles = this.storage.get("processedFiles");
+          if (!processedFiles) {
+            processedFiles = [];
+          }
+
+          // Return file list, but filter out already processed ones
+          return response.fileList.filter(file => {
+            return processedFiles.indexOf(file) == -1;
+          });
       })
       .pipe(
         tap(fileList => this.workspaceFilesSubject.next(fileList))
@@ -75,6 +109,6 @@ export class FilesService {
   }
 
   openWorkspaceFile(file: string): Observable<any> {
-    return this.http.post<any>("/api/v1/files/openWorkspaceFile?file=" + file, null);;
+    return this.http.post<any>("/api/v1/files/openWorkspaceFile?file=" + file, null);
   }
 }

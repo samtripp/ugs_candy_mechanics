@@ -175,6 +175,7 @@ export class WorkflowManagerService {
 
   finishedSending() {
     console.log(' - Finished sending');
+    this.filesService.addProcessedFile(this.file);
     this.workflowState = WorkflowStateEnum.FINISHED;
     this.router.navigate(['/chocolate-finished']);
   }

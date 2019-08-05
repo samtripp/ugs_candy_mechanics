@@ -1,25 +1,28 @@
 <!-- <div *ngIf="isReady()"> -->
 
-  <section class="start show" id="start">
-    <img class="tapto" src="/assets/images/tapto.svg">
-    <a href="#" class="btn btn-primary" id="start-btn">START</a>
-    <img class="logo-tag" src="/assets/images/cmtagline.svg">
-  </section>
+<section class="start show" id="start">
+  <img class="tapto" src="/assets/images/tapto.svg">
+  <a href="#" class="btn btn-primary" id="start-btn">START</a>
+  <img class="logo-tag" src="/assets/images/cmtagline.svg">
+</section>
 
-  <section class="step-1" id="step-1">
-    <h6>STEP 1:</h6>
-    <h1>Have you made a scan?</h1>
-    <div class="button-container">
-      <a href="#" class="btn btn-secondary btn-no" id="btn-no">No</a>
-      <a href="#" class="btn btn-secondary btn-yes" id="btn-yes">Yes</a>
-    </div>
-  </section>
+<section class="step-1" id="step-1">
+  <h6>STEP 1:</h6>
+  <h1>Have you made a scan?</h1>
+  <div class="button-container">
+    <a href="#" class="btn btn-secondary btn-no" id="btn-no">No</a>
+    <a href="#" class="btn btn-secondary btn-yes" id="btn-yes">Yes</a>
+  </div>
+</section>
 
-  <section class="step-2" id="step-2">
-    
-      <h6>STEP 2:</h6>
-      <h1>What is your name?</h1>
-      <div class="fileSelect">
+<section class="step-2" id="step-2">
+
+  <h6>STEP 2:</h6>
+  <h1>What is your name?</h1>
+
+  <div class="row">
+    <div class="col-9">
+      <div class="fileSelect" *ngIf="showNewFiles">
         <ul>
           <li *ngFor="let file of fileList">
             <button type="button" class="btn btn-link" (click)="selectFile(file)">
@@ -29,7 +32,30 @@
         </ul>
       </div>
 
-  </section>
+      <div class="fileSelect" *ngIf="!showNewFiles">
+        <ul>
+          <li *ngFor="let file of processedFileList">
+            <button type="button" class="btn btn-link" (click)="selectFile(file)">
+              {{formatFilename(file)}}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="btn-group-vertical">
+        <button type="button" class="btn btn-secondary" [ngClass]="{'active': showNewFiles}"
+                (click)="showNewFiles = true">New
+        </button>
+        <button type="button" class="btn btn-secondary" [ngClass]="{'active': !showNewFiles}"
+                (click)="showNewFiles = false">Re-Do
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 <div *ngIf="!isReady()" class="not-ready">
   <div class="d-flex justify-content-center align-items-center">

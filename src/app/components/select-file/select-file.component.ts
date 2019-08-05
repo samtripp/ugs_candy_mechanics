@@ -18,12 +18,21 @@ export class SelectFileComponent implements OnInit, OnDestroy {
   private statusSubscription: ISubscription;
   private status: Status;
   private _fileList: string[];
+  private _processedFileList: string[];
+  private _showNewFiles: boolean;
 
-  constructor(private router: Router, private filesService:FilesService, private workflowManager:WorkflowManagerService, private statusService:StatusService) { }
+
+  constructor(private router: Router, private filesService:FilesService, private workflowManager:WorkflowManagerService, private statusService:StatusService) {
+    this._showNewFiles = true;
+  }
 
   ngOnInit() {
     this.filesService.getWorkspaceFiles().subscribe(fileList => {
       this._fileList = fileList;
+    });
+
+    this.filesService.getProcessedFiles().subscribe(processedFileList => {
+      this._processedFileList = processedFileList;
     });
 
     this.status = new Status();
@@ -99,5 +108,17 @@ export class SelectFileComponent implements OnInit, OnDestroy {
 
   get fileList(): string[] {
     return this._fileList;
+  }
+
+  get processedFileList(): string[] {
+    return this._processedFileList;
+  }
+
+  get showNewFiles(): boolean {
+    return this._showNewFiles;
+  }
+
+  set showNewFiles(show) {
+    this._showNewFiles = show;
   }
 }

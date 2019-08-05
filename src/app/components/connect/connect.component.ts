@@ -77,7 +77,7 @@ export class ConnectComponent implements OnInit {
     return this._selectedPort;
   }
 
-  set selectedPort(selectedPort:string) {
+  set selectedPort(selectedPort: string) {
     this._selectedPort = selectedPort;
   }
 

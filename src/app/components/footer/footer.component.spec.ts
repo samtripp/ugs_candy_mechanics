@@ -22,10 +22,10 @@ describe('FooterComponent', () => {
       fixture = TestBed.createComponent(FooterComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
-  }); 
+  });
 
   /*it('should create', () => {
     // Couldn't get this to work!
