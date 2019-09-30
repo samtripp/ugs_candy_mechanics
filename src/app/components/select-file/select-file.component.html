@@ -1,9 +1,9 @@
 <!-- <div *ngIf="isReady()"> -->
 
 <section class="start show" id="start">
-  <img class="tapto" src="/assets/images/tapto.svg">
+  <h6>TAP TO</h6>
   <a href="#" class="btn btn-primary" id="start-btn">START</a>
-  <img class="logo-tag" src="/assets/images/cmtagline.svg">
+  <img class="logo-tag" src="/assets/images/godiva_logo.svg">
 </section>
 
 <section class="step-1" id="step-1">
@@ -13,6 +13,7 @@
     <a href="#" class="btn btn-secondary btn-no" id="btn-no">No</a>
     <a href="#" class="btn btn-secondary btn-yes" id="btn-yes">Yes</a>
   </div>
+  <img class="logo-tag" src="/assets/images/godiva_logo.svg">
 </section>
 
 <section class="step-2" id="step-2">
@@ -21,7 +22,7 @@
   <h1>What is your name?</h1>
 
   <div class="row">
-    <div class="col-9">
+    <div class="col-12">
       <div class="fileSelect" *ngIf="showNewFiles">
         <ul>
           <li *ngFor="let file of fileList">
@@ -41,8 +42,7 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="col-3">
+
       <div class="btn-group-vertical">
         <button type="button" class="btn btn-secondary" [ngClass]="{'active': showNewFiles}"
                 (click)="showNewFiles = true">New
@@ -51,6 +51,7 @@
                 (click)="showNewFiles = false">Re-Do
         </button>
       </div>
+
     </div>
 
   </div>

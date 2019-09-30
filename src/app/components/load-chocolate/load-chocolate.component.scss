@@ -7,6 +7,9 @@ section.step-3 {
   width:100%;
   height:100vh;
   background:#fff;
+  background-image:url(/assets/images/background2.svg);
+  background-size:cover;
+  background-position:center;
   display:none;
   flex-direction:column;
   justify-content: center;
@@ -16,7 +19,14 @@ section.step-3 {
 
   h1 {
     max-width: 540px;
+    color:black;
   }
+
+  h6 {
+    margin-top:50px;
+  }
+
+
 }
 
 
@@ -32,10 +42,25 @@ section.step-4 {
   width:100%;
   height:100vh;
   background:#fff;
+  background-image:url(/assets/images/background2.svg);
+  background-size:cover;
+  background-position:center;
   display:none;
   // flex-direction:column;
   // justify-content: center;
   // align-items:center;
+
+  h1 {
+    color:black;
+  }
+
+   .logo-tag {
+    width: 170px;
+    position: absolute;
+    left: 50%;
+    bottom: 60px;
+    transform: translateX(-50%);
+  }
 
 }
 
@@ -47,9 +72,7 @@ button {
   margin:0px 5px;
 }
 
-button:first-of-type {
-  box-shadow:-5px 5px 0px $blue;
-}
+
 
 .d-flex {
 	height:100vh;

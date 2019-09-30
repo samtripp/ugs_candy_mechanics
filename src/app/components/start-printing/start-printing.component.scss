@@ -6,28 +6,40 @@ section.start {
   left:0px;
   // z-index:3;
   background:#fff;
-  background-image:url(/assets/images/background.svg);
+  background-image:url(/assets/images/background2.svg);
   background-size:cover;
   background-position:center;
+  // background-image:url(/assets/images/background.svg);
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items:center;
 
   .btn-primary {
     font-size:3.5rem;
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%, -50%);
+    // position:absolute;
+    // left:50%;
+    // top:50%;
+    // transform:translate(-50%, -50%);
   }
 
-  .btn-primary:active {
-    transform:translate(calc(-50% - 5px), calc(-50% + 5px));
-  }
+  // .btn-primary:active {
+  //   transform:translate(calc(-50% - 5px), calc(-50% + 5px));
+  // }
 
   h6 {
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%, -50%);
-    margin-top:-70px;
+    margin-bottom:15px;
+    margin-top: -35px;
+  }
+
+   .logo-tag {
+    width: 170px;
+    position: absolute;
+    left: 50%;
+    bottom: 60px;
+    transform: translateX(-50%);
   }
 
 }
