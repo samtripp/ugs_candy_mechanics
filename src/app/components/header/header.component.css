@@ -7,7 +7,8 @@
   padding: 0.9rem 2.5rem 0.8rem 1.9rem;
   border-radius: 100px 0px 0px 100px;
   font-size: 1.2rem;
-  font-weight: 500; }
+  font-weight: 500;
+  color: #E8AA00 !important; }
   .help-btn-container a {
     color: #E8AA00;
     text-decoration: none;
@@ -24,7 +25,8 @@
   border-radius: 100px 0px 0px 100px;
   font-size: 1.2rem;
   font-weight: 500;
-  display: none; }
+  display: none;
+  color: #E8AA00 !important; }
   .staff-btn-container a {
     color: #E8AA00;
     text-decoration: none;
